@@ -1,6 +1,7 @@
 package ru.telegrambot;
 
 import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -11,6 +12,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+@Component
 public class Bot extends TelegramLongPollingBot {
 
     private static final Logger log = getLogger(Bot.class);
