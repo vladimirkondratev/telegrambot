@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.cityinfo.model.CityInfo;
+import ru.cityinfo.model.City;
 
 @Repository
-public interface CityInfoRepository extends JpaRepository<CityInfo, Integer> {
+public interface CityRepository extends JpaRepository<City, Integer> {
+
     @Transactional
     @Modifying
-    @Query("DELETE FROM CityInfo ci WHERE ci.id=:id")
+    @Query("DELETE FROM City c WHERE c.id=:id")
     int delete(@Param("id") int id);
 }
