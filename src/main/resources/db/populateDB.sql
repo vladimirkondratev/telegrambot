@@ -1,10 +1,10 @@
 DELETE
 FROM cityinfo;
 DELETE
-FROM city;
+FROM cities;
 ALTER SEQUENCE GLOBAL_SEQ RESTART WITH 100000;
 
-INSERT INTO CITY (name)
+INSERT INTO CITIES (name)
 VALUES ('Moscow'),
        ('Yakutsk');
 
