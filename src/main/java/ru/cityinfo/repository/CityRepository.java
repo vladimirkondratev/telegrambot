@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.cityinfo.model.City;
 
 @Repository
+@Transactional(readOnly = true)
 public interface CityRepository extends JpaRepository<City, Integer> {
 
     @Transactional
