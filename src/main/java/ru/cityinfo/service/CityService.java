@@ -5,6 +5,8 @@ import org.springframework.util.Assert;
 import ru.cityinfo.model.City;
 import ru.cityinfo.repository.CityRepository;
 
+import java.util.List;
+
 import static ru.cityinfo.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -28,6 +30,10 @@ public class CityService {
 
     public City get(int id) {
         return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+    }
+
+    public List<City> getAll(){
+        return repository.findAll();
     }
 
     public void delete(int id) {
