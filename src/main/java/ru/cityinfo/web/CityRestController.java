@@ -54,14 +54,14 @@ public class CityRestController {
         cityService.update(city);
     }
 
-    @DeleteMapping({"/id"})
+    @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCity(@PathVariable int id) {
         log.info("delete {}", id);
         cityService.delete(id);
     }
 
-    @GetMapping({"/id"})
+    @GetMapping({"/{id}"})
     public City getCity(@PathVariable int id) {
         log.info("get {}", id);
         return cityService.get(id);
