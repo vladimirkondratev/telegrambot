@@ -32,7 +32,7 @@ public class CityService {
         return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
-    public List<City> getAll(){
+    public List<City> getAll() {
         return repository.findAll();
     }
 
