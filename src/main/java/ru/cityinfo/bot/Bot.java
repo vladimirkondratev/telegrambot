@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import ru.cityinfo.service.BotService;
 
 import javax.annotation.PostConstruct;
 
@@ -21,6 +22,12 @@ public class Bot extends TelegramLongPollingBot {
 
     static {
         ApiContextInitializer.init();
+    }
+
+    private final BotService botService;
+
+    public Bot(BotService botService) {
+        this.botService = botService;
     }
 
     @PostConstruct
@@ -36,7 +43,8 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         String message = update.getMessage().getText();
-        sendMsg(update.getMessage().getChatId().toString(), message);
+        String response = botService.retrieveCityInfos(message);
+        sendMsg(update.getMessage().getChatId().toString(), response);
     }
 
     /**

@@ -24,4 +24,6 @@ public interface CityInfoRepository extends JpaRepository<CityInfo, Integer> {
 
     @Query("SELECT ci FROM CityInfo ci WHERE ci.city.id=:cityId")
     List<CityInfo> getAll(@Param("cityId") int cityId);
+
+    List<CityInfo> getAllByCity_Name(String name);
 }

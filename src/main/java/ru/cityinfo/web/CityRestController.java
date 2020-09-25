@@ -40,6 +40,8 @@ public class CityRestController {
     public ResponseEntity<City> createCity(@Valid @RequestBody City city) {
         log.info("create {}", city);
         City created = cityService.create(city);
+        String cityName = created.getName().toLowerCase();
+        created.setName(cityName);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(CITY_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
