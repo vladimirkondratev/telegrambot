@@ -1,5 +1,6 @@
 package ru.cityinfo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ public class City extends AbstractNamedEntity{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
     @JsonManagedReference
+    @JsonIgnore
     private List<CityInfo> infoList;
 
     public City(){

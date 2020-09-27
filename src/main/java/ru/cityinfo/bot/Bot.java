@@ -1,17 +1,14 @@
 package ru.cityinfo.bot;
 
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import ru.cityinfo.service.BotService;
-
-import javax.annotation.PostConstruct;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -20,25 +17,14 @@ public class Bot extends TelegramLongPollingBot {
 
     private static final Logger log = getLogger(Bot.class);
 
-    static {
-        ApiContextInitializer.init();
-    }
+    @Value("${bot.token}")
+    private String token;
 
-    private final BotService botService;
+    @Value("${bot.username}")
+    private String username;
 
-    public Bot(BotService botService) {
-        this.botService = botService;
-    }
-
-    @PostConstruct
-    public void startBot() {
-        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        try {
-            telegramBotsApi.registerBot(this);
-        } catch (TelegramApiRequestException e) {
-            e.printStackTrace();
-        }
-    }
+    @Autowired
+    private BotService botService;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -67,12 +53,12 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "TravelCityInfo_bot";
+        return username;
     }
 
     @Override
     public String getBotToken() {
-        return "1291049500:AAGL0VfHiOgyoVmwbOIEkAOqvepHHMvGb-A";
+        return token;
     }
 
 }
