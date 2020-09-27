@@ -1,13 +1,14 @@
 package ru.cityinfo.model;
 
-import org.hibernate.Hibernate;
-import ru.cityinfo.HasId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.util.ProxyUtils;
 
 import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class AbstractBaseEntity implements HasId {
+public abstract class BaseEntity implements Persistable<Integer> {
     public static final int START_SEQ = 100000;
 
     @Id
@@ -15,14 +16,19 @@ public abstract class AbstractBaseEntity implements HasId {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
-    public AbstractBaseEntity() {
+    public BaseEntity() {
     }
 
-    protected AbstractBaseEntity(Integer id) {
+    protected BaseEntity(Integer id) {
         this.id = id;
     }
 
+    @JsonIgnore
     @Override
+    public boolean isNew() {
+        return id == null;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -37,15 +43,16 @@ public abstract class AbstractBaseEntity implements HasId {
         return getClass().getSimpleName() + ":" + id;
     }
 
+    //    https://stackoverflow.com/questions/1638723
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+        if (o == null || !getClass().equals(ProxyUtils.getUserClass(o))) {
             return false;
         }
-        AbstractBaseEntity that = (AbstractBaseEntity) o;
+        BaseEntity that = (BaseEntity) o;
         return id != null && id.equals(that.id);
     }
 

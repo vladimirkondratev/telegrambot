@@ -4,11 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "cities", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "cities_idx")})
-public class City extends AbstractNamedEntity{
+public class City extends BaseEntity {
+
+    @NotBlank
+    @Size(min = 2, max = 100)
+    @Column(name = "name", nullable = false)
+    protected String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
     @JsonManagedReference
@@ -19,11 +26,20 @@ public class City extends AbstractNamedEntity{
     }
 
     public City(String name) {
-        this(null, name);
+        this.name = name;
     }
 
     public City(Integer id, String name) {
-        super(id, name);
+        super(id);
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public List<CityInfo> getInfoList() {

@@ -1,7 +1,7 @@
 package ru.cityinfo.util;
 
 import org.slf4j.Logger;
-import ru.cityinfo.HasId;
+import ru.cityinfo.model.BaseEntity;
 import ru.cityinfo.util.exception.ErrorType;
 import ru.cityinfo.util.exception.IllegalRequestDataException;
 import ru.cityinfo.util.exception.NotFoundException;
@@ -34,13 +34,13 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkNew(HasId bean) {
+    public static void checkNew(BaseEntity bean) {
         if (!bean.isNew()) {
             throw new IllegalRequestDataException(bean + " must be new (id=null)");
         }
     }
 
-    public static void assureIdConsistent(HasId bean, int id) {
+    public static void assureIdConsistent(BaseEntity bean, int id) {
 //      conservative when you reply, but accept liberally (http://stackoverflow.com/a/32728226/548473)
         if (bean.isNew()) {
             bean.setId(id);

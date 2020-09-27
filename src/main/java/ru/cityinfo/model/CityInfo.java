@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "cityinfo")
-public class CityInfo extends AbstractBaseEntity{
+public class CityInfo extends BaseEntity {
 
     private String info;
 
