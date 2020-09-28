@@ -18,7 +18,7 @@ public class BotService {
 
     public String retrieveCityInfos(String cityName) {
         cityName = cityName.strip().toLowerCase();
-        List<CityInfo> cityInfos = repository.getAllByCity_Name(cityName);
+        List<CityInfo> cityInfos = repository.getAllByCityNameIgnoreCase(cityName);
         if (!cityInfos.isEmpty()) {
             return cityInfos.stream().map(CityInfo::getInfo).collect(Collectors.joining("\n"));
         } else {

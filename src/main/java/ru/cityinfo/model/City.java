@@ -22,7 +22,7 @@ public class City extends BaseEntity {
     @JsonIgnore
     private List<CityInfo> infoList;
 
-    public City(){
+    protected City(){
     }
 
     public City(String name) {
